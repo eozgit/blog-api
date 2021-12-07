@@ -11,6 +11,7 @@ type DbOps interface {
 	init()
 	createUser(user *User)
 	getUserByName(username string) *User
+	listUsers() []*User
 	createPost(post *Post)
 	createComment(comment *Comment)
 	deleteCommentById(id uint)
@@ -46,6 +47,12 @@ func (dal *DataAccessLayer) getUserByName(userName string) *User {
 	var user User
 	dal.db.Find(&user, "user_name = ?", userName)
 	return &user
+}
+
+func (dal *DataAccessLayer) listUsers() []*User {
+	var users []*User
+	dal.db.Find(&users)
+	return users
 }
 
 func (dal *DataAccessLayer) createPost(post *Post) {
