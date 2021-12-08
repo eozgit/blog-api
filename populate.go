@@ -14,13 +14,13 @@ func populateDatabase() {
 	dal.createCategory(&cinema)
 
 	gandalf := User{}
-	gandalf.UserName = "gandalf"
-	gandalf.PasswordHash = "youshallnotpass"
+	gandalf.Username = "gandalf"
+	gandalf.Password = "youshallnotpass"
 	dal.createUser(&gandalf)
 
 	frodo := User{}
-	frodo.UserName = "frodo"
-	frodo.PasswordHash = "yourelate"
+	frodo.Username = "frodo"
+	frodo.Password = "yourelate"
 	dal.createUser(&frodo)
 
 	post1 := Post{}

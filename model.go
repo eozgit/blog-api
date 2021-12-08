@@ -2,12 +2,17 @@ package main
 
 import "gorm.io/gorm"
 
+type Credentials struct {
+	Username string `binding:"required"`
+	Password string `binding:"required"`
+}
+
 type User struct {
 	gorm.Model
-	UserName     string
-	PasswordHash string
-	Posts        []Post
-	Comments     []Comment
+	Username string
+	Password string
+	Posts    []Post
+	Comments []Comment
 }
 
 type Post struct {

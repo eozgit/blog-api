@@ -10,9 +10,19 @@ blog api loosely based on the following er diagram
 
 ```sh
 clear && sqlite3 -header -column -echo /tmp/blog.db \
-"select id, user_name, password_hash, updated_at from users order by updated_at desc; \
+"select id, username, password, updated_at from users order by updated_at desc; \
 select id, title, content, user_id, parent_id updated_at from posts order by updated_at desc; \
 select id, title, content, post_id, parent_id, user_id, deleted_at, updated_at from comments order by updated_at desc; \
 select id, title, content, updated_at from categories order by updated_at desc; \
 select * from post_categories;"
+```
+
+#### Register
+```sh
+curl --header "Content-Type: application/json" --request POST --data '{"Username":"legolas","Password":"youhavemybow"}' localhost:8080/register
+```
+
+#### Smoke test
+```sh
+curl --user legolas:youhavemybow localhost:8080/test
 ```
