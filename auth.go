@@ -16,7 +16,7 @@ func registerUser(c *gin.Context) {
 	user := User{}
 	user.Username = credentials.Username
 	user.Password = credentials.Password
-	dal.createUser(&user)
+	app.dal.createUser(&user)
 
 	authorized := createProtectedRouterGroup()
 
@@ -26,7 +26,7 @@ func registerUser(c *gin.Context) {
 }
 
 func getAccounts() map[string]string {
-	users := dal.listUsers()
+	users := app.dal.listUsers()
 
 	accounts := make(map[string]string)
 	for i := 0; i < len(users); i++ {
@@ -40,5 +40,5 @@ func getAccounts() map[string]string {
 func createProtectedRouterGroup() *gin.RouterGroup {
 	accounts := getAccounts()
 
-	return r.Group("/", gin.BasicAuth(accounts))
+	return app.r.Group("/", gin.BasicAuth(accounts))
 }

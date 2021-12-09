@@ -4,22 +4,35 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var dal DataAccessLayer
-var r *gin.Engine
+type App struct {
+	dal *DataAccessLayer
+	r   *gin.Engine
+}
+
+var app *App
 
 func main() {
-	dal = DataAccessLayer{}
-	dal.init()
+	app = setupApp()
 
-	r = gin.Default()
-
-	r.POST("/register", registerUser)
-
-	r.Run()
+	app.r.Run()
 }
 
 func createProtectedEndpoints(authorized *gin.RouterGroup) {
 	authorized.GET("/test", func(c *gin.Context) {
 		c.String(200, "ok")
 	})
+}
+
+func setupRouter() *gin.Engine {
+	r := gin.Default()
+	r.POST("/register", registerUser)
+	return r
+}
+
+func setupApp() *App {
+	app = &App{&DataAccessLayer{}, setupRouter()}
+	app.dal.init()
+
+	app.r = setupRouter()
+	return app
 }

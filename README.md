@@ -22,7 +22,7 @@ select * from post_categories;"
 curl --header "Content-Type: application/json" --request POST --data '{"Username":"legolas","Password":"youhavemybow"}' localhost:8080/register
 ```
 
-#### Smoke test
+#### Run tests
 ```sh
-curl --user legolas:youhavemybow localhost:8080/test
+go test -v .
 ```
