@@ -18,9 +18,7 @@ func main() {
 }
 
 func createProtectedEndpoints(authorized *gin.RouterGroup) {
-	authorized.GET("/test", func(c *gin.Context) {
-		c.String(200, "ok")
-	})
+	authorized.POST("/post", publishPost)
 }
 
 func setupRouter() *gin.Engine {

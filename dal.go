@@ -45,7 +45,7 @@ func (dal *DataAccessLayer) createUser(user *User) {
 
 func (dal *DataAccessLayer) getUserByName(userName string) *User {
 	var user User
-	dal.db.Find(&user, "user_name = ?", userName)
+	dal.db.Where("username = ?", userName).Find(&user)
 	return &user
 }
 
@@ -69,7 +69,7 @@ func (dal *DataAccessLayer) createCategory(category *Category) {
 
 func (dal *DataAccessLayer) getCategoryByTitle(title string) *Category {
 	var category Category
-	dal.db.Find(&category, "title = ?", title)
+	dal.db.Where("title = ?", title).First(&category)
 	return &category
 }
 
@@ -85,6 +85,6 @@ func (dal *DataAccessLayer) listPostsByCategory(category *Category) []*Post {
 
 func (dal *DataAccessLayer) listCommentsByPost(post *Post) []*Comment {
 	var comments []*Comment
-	dal.db.Find(&comments, "post_id = ?", post.ID)
+	dal.db.Where("post_id = ?", post.ID).Find(&comments)
 	return comments
 }
