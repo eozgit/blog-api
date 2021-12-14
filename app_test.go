@@ -14,7 +14,7 @@ func TestRegistration(t *testing.T) {
 	_, w := setupTest(t)
 
 	assert.Equal(t, http.StatusOK, w.Code)
-	assert.Equal(t, `{"status":200}`, removeSpaces(w.Body.String()))
+	assert.Equal(t, `{"status":200}`, removeWhitespace(w.Body.String()))
 }
 
 func TestCreatePost(t *testing.T) {
@@ -26,10 +26,10 @@ func TestCreatePost(t *testing.T) {
 	app.r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
-	assert.Equal(t, `{"status":200}`, removeSpaces(w.Body.String()))
+	assert.Equal(t, `{"status":200}`, removeWhitespace(w.Body.String()))
 }
 
-func removeSpaces(str string) string {
+func removeWhitespace(str string) string {
 	return strings.Join(strings.Fields(str), "")
 }
 

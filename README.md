@@ -18,7 +18,7 @@ clear && sqlite3 -header -column -echo /tmp/blog.db \
 "/* USERS */ select id, username, password, updated_at from users order by updated_at desc; \
 /* 
 
-POSTS */ select id, title, content, user_id, parent_id updated_at from posts order by updated_at desc; \
+POSTS */ select id, title, content, user_id, parent_id, updated_at from posts order by updated_at desc; \
 /* 
 
 COMMENTS */ select id, title, content, post_id, parent_id, user_id, deleted_at, updated_at from comments order by updated_at desc; \
@@ -38,6 +38,11 @@ curl --header "Content-Type: application/json" --request POST --data '{"Username
 #### Create Post
 ```sh
 curl --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --data '{"Title":"Certainty Of Death? Small Chance Of Success?","Content":"What Are We Waitin'' For?","Categories":["Literature", "Cinema"]}' --write-out "\n" localhost:8080/post
+```
+
+#### Create Child Post
+```sh
+curl --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --data '{"Title": "Roaring Fires, Malt Beer","Content":"Ripe Meat Off The Bone!","Categories":["Literature"]}' --write-out "\n" localhost:8080/post/3
 ```
 
 #### Run tests

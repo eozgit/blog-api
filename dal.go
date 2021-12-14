@@ -13,11 +13,13 @@ type DbOps interface {
 	getUserByName(username string) *User
 	listUsers() []*User
 	createPost(post *Post)
+	getPostByID(id *uint) *Post
 	createComment(comment *Comment)
 	deleteCommentById(id uint)
 	createCategory(category *Category)
 	getCategoryByTitle(title string) *Category
 	listPostsByCategory(category *Category) []*Post
+	listPostsByParentPost(post *Post) []*Post
 	listCommentsByPost(post *Post) []*Comment
 }
 
@@ -59,6 +61,12 @@ func (dal *DataAccessLayer) createPost(post *Post) {
 	dal.db.Create(post)
 }
 
+func (dal *DataAccessLayer) getPostByID(id *uint) *Post {
+	var post Post
+	dal.db.First(&post, id)
+	return &post
+}
+
 func (dal *DataAccessLayer) createComment(comment *Comment) {
 	dal.db.Create(comment)
 }
@@ -80,6 +88,12 @@ func (dal *DataAccessLayer) deleteCommentById(id uint) {
 func (dal *DataAccessLayer) listPostsByCategory(category *Category) []*Post {
 	var posts []*Post
 	dal.db.Model(&category).Association("Posts").Find(&posts)
+	return posts
+}
+
+func (dal *DataAccessLayer) listPostsByParentPost(post *Post) []*Post {
+	var posts []*Post
+	dal.db.Model(&post).Association("Children").Find(&posts)
 	return posts
 }
 

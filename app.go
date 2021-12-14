@@ -19,6 +19,7 @@ func main() {
 
 func createProtectedEndpoints(authorized *gin.RouterGroup) {
 	authorized.POST("/post", publishPost)
+	authorized.POST("/post/:id", publishChildPost)
 }
 
 func setupRouter() *gin.Engine {
