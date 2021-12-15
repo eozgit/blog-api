@@ -35,14 +35,14 @@ func populateDatabase() {
 	comment1 := Comment{}
 	comment1.Title = "Nothing. There's nothing."
 	comment1.Content = "Wait... there are markings. It's some form of Elvish, I can't read it."
-	comment1.PostID = post1.ID
+	comment1.PostID = &post1.ID
 	comment1.User = frodo
 	app.dal.createComment(&comment1)
 
 	comment2 := Comment{}
 	comment2.Title = "There are few who can."
 	comment2.Content = "The language is the that of Mordor, which I will not utter here."
-	comment2.PostID = post1.ID
+	comment2.PostID = &post1.ID
 	comment2.User = gandalf
 	comment2.ParentId = &comment1.ID
 	app.dal.createComment(&comment2)

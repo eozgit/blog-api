@@ -29,6 +29,18 @@ func TestCreatePost(t *testing.T) {
 	assert.Equal(t, `{"status":200}`, removeWhitespace(w.Body.String()))
 }
 
+func TestCreateComment(t *testing.T) {
+	app, w := setupTest(t)
+
+	payload := `{"Title":"I would have gone with you to the end","Content":"Into the very fires of Mordor"}`
+	req, _ := http.NewRequest("POST", "/post/1/comment", strings.NewReader(payload))
+	req.Header.Add("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte("gimli:noonetossesadwarf")))
+	app.r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, `{"status":200}`, removeWhitespace(w.Body.String()))
+}
+
 func removeWhitespace(str string) string {
 	return strings.Join(strings.Fields(str), "")
 }

@@ -2,40 +2,37 @@ package main
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
 func publishPost(c *gin.Context) {
-	publishPostHelper(c, nil)
+	username, ok := checkAuthorisation(c)
+	if !ok {
+		return
+	}
+
+	publishPostHelper(c, nil, username)
 }
 
 func publishChildPost(c *gin.Context) {
-	idParam := c.Param("id")
-
-	idInt, err := strconv.Atoi(idParam)
-	if err != nil {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "invalid post id"})
+	username, ok := checkAuthorisation(c)
+	if !ok {
 		return
 	}
 
-	id := uint(idInt)
+	id, hasErr := getIdParam(c)
+	if hasErr {
+		return
+	}
 
-	publishPostHelper(c, &id)
+	publishPostHelper(c, id, username)
 }
 
-func publishPostHelper(c *gin.Context, id *uint) {
+func publishPostHelper(c *gin.Context, id *uint, username string) {
 	var newPost NewPost
 	if err := c.ShouldBindJSON(&newPost); err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	username, _, ok := c.Request.BasicAuth()
-
-	if !ok {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "unauthorised"})
 		return
 	}
 

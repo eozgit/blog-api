@@ -26,11 +26,11 @@ type Comment struct {
 	gorm.Model
 	Title    string
 	Content  string
-	PostID   uint
-	ParentId *uint
 	UserID   uint
 	User     User
+	ParentId *uint
 	children []Comment `gorm:"foreignkey:ParentId"`
+	PostID   *uint
 }
 
 type Category struct {

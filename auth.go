@@ -42,3 +42,13 @@ func createProtectedRouterGroup() *gin.RouterGroup {
 
 	return app.r.Group("/", gin.BasicAuth(accounts))
 }
+
+func checkAuthorisation(c *gin.Context) (string, bool) {
+	username, _, ok := c.Request.BasicAuth()
+
+	if !ok {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "unauthorised"})
+	}
+
+	return username, ok
+}

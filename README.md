@@ -10,6 +10,36 @@ blog api loosely based on the following er diagram [source](https://mysql.tutori
 go run .
 ```
 
+#### Register
+```sh
+curl --data '{"Username":"gimli","Password":"noonetossesadwarf"}' --header "Content-Type: application/json" --request POST --write-out "\n" localhost:8080/register
+```
+
+#### Create Post
+```sh
+curl --data '{"Title":"Certainty Of Death? Small Chance Of Success?","Content":"What Are We Waitin'' For?","Categories":["Literature", "Cinema"]}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/post
+```
+
+#### Create Child Post
+```sh
+curl --data '{"Title": "Roaring Fires, Malt Beer","Content":"Ripe Meat Off The Bone!","Categories":["Literature"]}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/post/3
+```
+
+#### Create Comment
+```sh
+curl --data '{"Title":"I would have gone with you to the end","Content":"Into the very fires of Mordor"}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/post/1/comment
+```
+
+#### Create Child Comment
+```sh
+curl --data '{"Title":"Shall I describe it to you?","Content":"..or would you like me to find you a box?"}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/comment/1
+```
+
+#### Run tests
+```sh
+go test -v .
+```
+
 
 #### Query
 
@@ -28,24 +58,4 @@ CATEGORIES */ select id, title, content, updated_at from categories order by upd
 /* 
 
 POST-CATEGORY MAP */ select * from post_categories;"
-```
-
-#### Register
-```sh
-curl --header "Content-Type: application/json" --request POST --data '{"Username":"gimli","Password":"noonetossesadwarf"}' --write-out "\n" localhost:8080/register
-```
-
-#### Create Post
-```sh
-curl --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --data '{"Title":"Certainty Of Death? Small Chance Of Success?","Content":"What Are We Waitin'' For?","Categories":["Literature", "Cinema"]}' --write-out "\n" localhost:8080/post
-```
-
-#### Create Child Post
-```sh
-curl --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --data '{"Title": "Roaring Fires, Malt Beer","Content":"Ripe Meat Off The Bone!","Categories":["Literature"]}' --write-out "\n" localhost:8080/post/3
-```
-
-#### Run tests
-```sh
-go test -v .
 ```

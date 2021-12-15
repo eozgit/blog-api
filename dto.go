@@ -10,3 +10,8 @@ type NewPost struct {
 	Content    string   `binding:"required"`
 	Categories []string `binding:"required"`
 }
+
+type NewComment struct {
+	Title   string `binding:"required"`
+	Content string `binding:"required"`
+}
