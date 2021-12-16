@@ -22,7 +22,7 @@ func registerUser(c *gin.Context) {
 
 	createProtectedEndpoints(authorized)
 
-	c.IndentedJSON(http.StatusOK, gin.H{"status": http.StatusOK})
+	c.IndentedJSON(http.StatusOK, gin.H{"status": "User created"})
 }
 
 func getAccounts() map[string]string {
@@ -47,7 +47,7 @@ func checkAuthorisation(c *gin.Context) (string, bool) {
 	username, _, ok := c.Request.BasicAuth()
 
 	if !ok {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "unauthorised"})
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorised"})
 	}
 
 	return username, ok

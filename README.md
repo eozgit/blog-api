@@ -35,6 +35,11 @@ curl --data '{"Title":"I would have gone with you to the end","Content":"Into th
 curl --data '{"Title":"Shall I describe it to you?","Content":"..or would you like me to find you a box?"}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/comment/1
 ```
 
+#### Update Post
+```sh
+curl --data '{"Title":"Great!","Content":"Where are we going?"}' --header "Content-Type: application/json" --request PATCH --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/post/3
+```
+
 #### Run tests
 ```sh
 go test -v .

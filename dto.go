@@ -6,9 +6,13 @@ type Credentials struct {
 }
 
 type NewPost struct {
-	Title      string   `binding:"required"`
-	Content    string   `binding:"required"`
+	*UpdatedPost
 	Categories []string `binding:"required"`
+}
+
+type UpdatedPost struct {
+	Title   string `binding:"required"`
+	Content string `binding:"required"`
 }
 
 type NewComment struct {

@@ -44,5 +44,5 @@ func publishCommentHelper(c *gin.Context, isChildComment bool) {
 	}
 	app.dal.createComment(&comment)
 
-	c.IndentedJSON(http.StatusOK, gin.H{"status": http.StatusOK})
+	c.IndentedJSON(http.StatusOK, gin.H{"status": "Commemt created"})
 }

@@ -54,5 +54,38 @@ func publishPostHelper(c *gin.Context, id *uint, username string) {
 		categories.Append(category)
 	}
 
-	c.IndentedJSON(http.StatusOK, gin.H{"status": http.StatusOK})
+	c.IndentedJSON(http.StatusOK, gin.H{"status": "Post created"})
+}
+
+func updatePost(c *gin.Context) {
+	username, ok := checkAuthorisation(c)
+	if !ok {
+		return
+	}
+
+	id, hasErr := getIdParam(c)
+	if hasErr {
+		return
+	}
+
+	user := app.dal.getUserByName(username)
+
+	post := app.dal.getPostByID(id)
+
+	if user.ID != post.UserID {
+		c.IndentedJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorised"})
+		return
+	}
+
+	var updatedPost UpdatedPost
+	if err := c.ShouldBindJSON(&updatedPost); err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	post.Title = updatedPost.Title
+	post.Content = updatedPost.Content
+	app.dal.db.Save(&post)
+
+	c.IndentedJSON(http.StatusOK, gin.H{"status": "Post updated"})
 }

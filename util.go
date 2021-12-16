@@ -15,7 +15,7 @@ func getIdParam(c *gin.Context) (*uint, bool) {
 	hasErr := err != nil
 	var id *uint = nil
 	if hasErr {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": fmt.Sprint("invalid comment id: %w", err)})
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": fmt.Sprint("invalid id %w %w", idParam, err.Error())})
 	} else {
 		idHelper := uint(idInt)
 		id = &idHelper
