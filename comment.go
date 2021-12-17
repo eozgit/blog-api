@@ -27,7 +27,7 @@ func publishCommentHelper(c *gin.Context, isChildComment bool) {
 
 	var newComment NewComment
 	if err := c.ShouldBindJSON(&newComment); err != nil {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -44,5 +44,5 @@ func publishCommentHelper(c *gin.Context, isChildComment bool) {
 	}
 	app.dal.createComment(&comment)
 
-	c.IndentedJSON(http.StatusOK, gin.H{"status": "Commemt created"})
+	c.JSON(http.StatusOK, gin.H{"status": "Commemt created"})
 }

@@ -9,7 +9,7 @@ import (
 func registerUser(c *gin.Context) {
 	var credentials Credentials
 	if err := c.ShouldBindJSON(&credentials); err != nil {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -22,7 +22,7 @@ func registerUser(c *gin.Context) {
 
 	createProtectedEndpoints(authorized)
 
-	c.IndentedJSON(http.StatusOK, gin.H{"status": "User created"})
+	c.JSON(http.StatusOK, gin.H{"status": "User created"})
 }
 
 func getAccounts() map[string]string {

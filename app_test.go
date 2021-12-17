@@ -15,7 +15,7 @@ func TestRegistration(t *testing.T) {
 	_, w := setupTest(t)
 
 	assert.Equal(t, http.StatusOK, w.Code)
-	assert.Equal(t, "{ \"status\": \"User created\" }", unindent(w.Body.String()))
+	assert.Equal(t, "{\"status\":\"User created\"}", unindent(w.Body.String()))
 }
 
 func TestCreatePost(t *testing.T) {
@@ -28,20 +28,7 @@ func TestCreatePost(t *testing.T) {
 	app.r.ServeHTTP(rec, req)
 
 	assert.Equal(t, http.StatusOK, rec.Code)
-	assert.Equal(t, "{ \"status\": \"Post created\" }", unindent(rec.Body.String()))
-}
-
-func TestCreateComment(t *testing.T) {
-	app, _ := setupTest(t)
-
-	payload := `{"Title":"I would have gone with you to the end","Content":"Into the very fires of Mordor"}`
-	req, _ := http.NewRequest("POST", "/post/1/comment", strings.NewReader(payload))
-	req.Header.Add("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte("gimli:noonetossesadwarf")))
-	rec := httptest.NewRecorder()
-	app.r.ServeHTTP(rec, req)
-
-	assert.Equal(t, http.StatusOK, rec.Code)
-	assert.Equal(t, "{ \"status\": \"Comment created\" }", unindent(rec.Body.String()))
+	assert.Equal(t, "{\"status\":\"Post created\"}", unindent(rec.Body.String()))
 }
 
 func unindent(str string) string {

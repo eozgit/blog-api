@@ -12,32 +12,32 @@ go run .
 
 #### Register
 ```sh
-curl --data '{"Username":"gimli","Password":"noonetossesadwarf"}' --header "Content-Type: application/json" --request POST --write-out "\n" localhost:8080/register
+curl --data '{"Username":"gimli","Password":"noonetossesadwarf"}' --header "Content-Type: application/json" --request POST --silent localhost:8080/register | json_pp
 ```
 
 #### Create Post
 ```sh
-curl --data '{"Title":"Certainty Of Death? Small Chance Of Success?","Content":"What Are We Waitin'' For?","Categories":["Literature", "Cinema"]}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/post
+curl --data '{"Title":"Certainty Of Death? Small Chance Of Success?","Content":"What Are We Waitin'' For?","Categories":["Literature", "Cinema"]}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --silent localhost:8080/post | json_pp
 ```
 
 #### Create Child Post
 ```sh
-curl --data '{"Title": "Roaring Fires, Malt Beer","Content":"Ripe Meat Off The Bone!","Categories":["Literature"]}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/post/3
+curl --data '{"Title": "Roaring Fires, Malt Beer","Content":"Ripe Meat Off The Bone!","Categories":["Literature"]}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --silent localhost:8080/post/3 | json_pp
 ```
 
 #### Create Comment
 ```sh
-curl --data '{"Title":"I would have gone with you to the end","Content":"Into the very fires of Mordor"}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/post/1/comment
+curl --data '{"Title":"I would have gone with you to the end","Content":"Into the very fires of Mordor"}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --silent localhost:8080/post/1/comment | json_pp
 ```
 
 #### Create Child Comment
 ```sh
-curl --data '{"Title":"Shall I describe it to you?","Content":"..or would you like me to find you a box?"}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/comment/1
+curl --data '{"Title":"Shall I describe it to you?","Content":"..or would you like me to find you a box?"}' --header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --silent localhost:8080/comment/1 | json_pp
 ```
 
 #### Update Post
 ```sh
-curl --data '{"Title":"Great!","Content":"Where are we going?"}' --header "Content-Type: application/json" --request PATCH --user gimli:noonetossesadwarf --write-out "\n" localhost:8080/post/3
+curl --data '{"Title":"Great!","Content":"Where are we going?"}' --header "Content-Type: application/json" --request PATCH --user gimli:noonetossesadwarf --silent localhost:8080/post/3 | json_pp
 ```
 
 #### Run tests
