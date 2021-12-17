@@ -40,6 +40,11 @@ curl --data '{"Title":"Shall I describe it to you?","Content":"..or would you li
 curl --data '{"Title":"Great!","Content":"Where are we going?"}' --header "Content-Type: application/json" --request PATCH --user gimli:noonetossesadwarf --silent localhost:8080/post/3 | json_pp
 ```
 
+#### Delete Comment
+```sh
+curl --header "Content-Type: application/json" --request DELETE --user gimli:noonetossesadwarf --silent localhost:8080/comment/1 | json_pp
+```
+
 #### Run tests
 ```sh
 go test -v .

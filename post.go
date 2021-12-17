@@ -26,6 +26,15 @@ func publishChildPost(c *gin.Context) {
 		return
 	}
 
+	user := app.dal.getUserByName(username)
+
+	post := app.dal.getPostByID(id)
+
+	if user.ID != post.UserID {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorised"})
+		return
+	}
+
 	publishPostHelper(c, id, username)
 }
 

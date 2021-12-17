@@ -15,6 +15,7 @@ type DbOps interface {
 	createPost(post *Post)
 	getPostByID(id *uint) *Post
 	createComment(comment *Comment)
+	getCommentById(id uint) *Comment
 	deleteCommentById(id uint)
 	createCategory(category *Category)
 	getCategoryByTitle(title string) *Category
@@ -79,6 +80,12 @@ func (dal *DataAccessLayer) getCategoryByTitle(title string) *Category {
 	var category Category
 	dal.db.Where("title = ?", title).First(&category)
 	return &category
+}
+
+func (dal *DataAccessLayer) getCommentById(id uint) *Comment {
+	var comment Comment
+	dal.db.First(&comment, id)
+	return &comment
 }
 
 func (dal *DataAccessLayer) deleteCommentById(id uint) {

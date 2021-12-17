@@ -15,7 +15,7 @@ func getIdParam(c *gin.Context) (*uint, bool) {
 	hasErr := err != nil
 	var id *uint = nil
 	if hasErr {
-		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprint("invalid id %w %w", idParam, err.Error())})
+		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("id param: %s error: %s", idParam, err.Error())})
 	} else {
 		idHelper := uint(idInt)
 		id = &idHelper

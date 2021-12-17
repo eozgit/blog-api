@@ -23,6 +23,7 @@ func createProtectedEndpoints(authorized *gin.RouterGroup) {
 	authorized.PATCH("/post/:id", updatePost)
 	authorized.POST("/post/:id/comment", publishComment)
 	authorized.POST("/comment/:id", publishChildComment)
+	authorized.DELETE("/comment/:id", deleteComment)
 }
 
 func setupRouter() *gin.Engine {

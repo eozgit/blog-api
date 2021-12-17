@@ -44,5 +44,30 @@ func publishCommentHelper(c *gin.Context, isChildComment bool) {
 	}
 	app.dal.createComment(&comment)
 
-	c.JSON(http.StatusOK, gin.H{"status": "Commemt created"})
+	c.JSON(http.StatusOK, gin.H{"status": "Comment created"})
+}
+
+func deleteComment(c *gin.Context) {
+	username, ok := checkAuthorisation(c)
+	if !ok {
+		return
+	}
+
+	id, hasErr := getIdParam(c)
+	if hasErr {
+		return
+	}
+
+	user := app.dal.getUserByName(username)
+
+	comment := app.dal.getCommentById(*id)
+
+	if user.ID != comment.UserID {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorised"})
+		return
+	}
+
+	app.dal.deleteCommentById(*id)
+
+	c.JSON(http.StatusOK, gin.H{"status": "Comment deleted"})
 }
