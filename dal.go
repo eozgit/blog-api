@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strings"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -78,7 +79,8 @@ func (dal *DataAccessLayer) createCategory(category *Category) {
 
 func (dal *DataAccessLayer) getCategoryByTitle(title string) *Category {
 	var category Category
-	dal.db.Where("title = ?", title).First(&category)
+	title = strings.ToLower(title)
+	dal.db.Where("lower(title) = ?", title).First(&category)
 	return &category
 }
 

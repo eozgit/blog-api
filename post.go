@@ -98,3 +98,18 @@ func updatePost(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"status": "Post updated"})
 }
+
+func listPostsByCategory(c *gin.Context) {
+	_, ok := checkAuthorisation(c)
+	if !ok {
+		return
+	}
+
+	title := c.Param("category")
+
+	category := app.dal.getCategoryByTitle(title)
+
+	posts := app.dal.listPostsByCategory(category)
+
+	c.JSON(http.StatusOK, gin.H{"posts": posts})
+}

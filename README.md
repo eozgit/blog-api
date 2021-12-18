@@ -45,6 +45,11 @@ curl --data '{"Title":"Great!","Content":"Where are we going?"}' --header "Conte
 curl --header "Content-Type: application/json" --request DELETE --user gimli:noonetossesadwarf --silent localhost:8080/comment/1 | json_pp
 ```
 
+#### List Posts by Category
+```sh
+curl --header "Content-Type: application/json" --request GET --user gimli:noonetossesadwarf --silent localhost:8080/post/literature | json_pp
+```
+
 #### Run tests
 ```sh
 go test -v .
