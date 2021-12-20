@@ -47,7 +47,12 @@ curl --header "Content-Type: application/json" --request DELETE --user gimli:noo
 
 #### List Posts by Category
 ```sh
-curl --header "Content-Type: application/json" --request GET --user gimli:noonetossesadwarf --silent localhost:8080/post/literature | json_pp
+curl --header "Content-Type: application/json" --request GET --user gimli:noonetossesadwarf --silent localhost:8080/post?category=literature | json_pp
+```
+
+#### List Posts by Category
+```sh
+curl --header "Content-Type: application/json" --request GET --user gimli:noonetossesadwarf --silent localhost:8080/post/1/comment | json_pp
 ```
 
 #### Run tests

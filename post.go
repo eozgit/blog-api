@@ -105,11 +105,11 @@ func listPostsByCategory(c *gin.Context) {
 		return
 	}
 
-	title := c.Param("category")
+	title := c.Query("category")
 
 	category := app.dal.getCategoryByTitle(title)
 
 	posts := app.dal.listPostsByCategory(category)
 
-	c.JSON(http.StatusOK, gin.H{"posts": posts})
+	c.JSON(http.StatusOK, posts)
 }

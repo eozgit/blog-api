@@ -71,3 +71,28 @@ func deleteComment(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"status": "Comment deleted"})
 }
+
+func listCommentsByPost(c *gin.Context) {
+	username, ok := checkAuthorisation(c)
+	if !ok {
+		return
+	}
+
+	id, hasErr := getIdParam(c)
+	if hasErr {
+		return
+	}
+
+	user := app.dal.getUserByName(username)
+
+	post := app.dal.getPostByID(id)
+
+	if user.ID != post.UserID {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorised"})
+		return
+	}
+
+	comments := app.dal.listCommentsByPost(post)
+
+	c.JSON(http.StatusOK, comments)
+}

@@ -19,10 +19,11 @@ func main() {
 
 func createProtectedEndpoints(authorized *gin.RouterGroup) {
 	authorized.POST("/post", publishPost)
-	authorized.GET("/post/:category", listPostsByCategory)
+	authorized.GET("/post", listPostsByCategory)
 	authorized.POST("/post/:id", publishChildPost)
 	authorized.PATCH("/post/:id", updatePost)
 	authorized.POST("/post/:id/comment", publishComment)
+	authorized.GET("/post/:id/comment", listCommentsByPost)
 	authorized.POST("/comment/:id", publishChildComment)
 	authorized.DELETE("/comment/:id", deleteComment)
 }
