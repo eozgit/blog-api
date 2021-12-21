@@ -5,9 +5,9 @@ blog api loosely based on the following er diagram [source](https://mysql.tutori
 [![er diagram](er.png)](https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql)
 
 
-#### Run app
+#### Run container
 ```sh
-go run .
+docker run --tty --interactive --publish 8080:8080 eozgit/blog-api
 ```
 
 #### Register
@@ -50,9 +50,14 @@ curl --header "Content-Type: application/json" --request DELETE --user gimli:noo
 curl --header "Content-Type: application/json" --request GET --user gimli:noonetossesadwarf --silent localhost:8080/post?category=literature | json_pp
 ```
 
-#### List Posts by Category
+#### List Comments by Post
 ```sh
 curl --header "Content-Type: application/json" --request GET --user gimli:noonetossesadwarf --silent localhost:8080/post/1/comment | json_pp
+```
+
+#### Run code
+```sh
+go run .
 ```
 
 #### Run tests
