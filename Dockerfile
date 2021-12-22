@@ -10,4 +10,4 @@ RUN apt-get update
 RUN apt-get install sqlite3
 RUN go get .
 
-CMD [ "go", "run", "." ]
+CMD [ "make", "go" ]

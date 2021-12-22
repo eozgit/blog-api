@@ -65,6 +65,11 @@ go run .
 go test -v .
 ```
 
+#### Build container
+```sh
+docker build --tag eozgit/blog-api .
+```
+
 
 #### Query
 
