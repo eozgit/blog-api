@@ -12,56 +12,91 @@ run:
 	docker run --tty --interactive --publish 8080:8080 eozgit/blog-api
 
 # API calls
-register:
+aragorn-signup:
 	clear
-	curl --data '{"Username":"gimli","Password":"noonetossesadwarf"}' \
+	curl --data '{"Username":"aragorn","Password":"myfriends-youbowtonoone!"}' \
 		--header "Content-Type: application/json" --request POST --silent \
 		localhost:8080/register | json_pp
 
-post:
+aragorn-post-no-stopping:
 	clear
-	curl --data '{"Title":"Certainty Of Death? Small Chance Of Success?","Content":"What Are We Waitin'' For?","Categories":["Literature", "Cinema"]}' \
-		--header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --silent \
+	curl --data '{"Title":"Gentlem,","Content":"we do not stop ''til nightfall.","Categories":["Literature", "Cinema"]}' \
+		--header "Content-Type: application/json" --request POST --user aragorn:myfriends-youbowtonoone! --silent \
 		localhost:8080/post | json_pp
 
-child-post:
+pippin-signup:
 	clear
-	curl --data '{"Title": "Roaring Fires, Malt Beer","Content":"Ripe Meat Off The Bone!","Categories":["Literature"]}' \
-		--header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --silent \
-		localhost:8080/post/3 | json_pp
+	curl --data '{"Username":"pippin","Password":"itcomesinpints?"}' \
+		--header "Content-Type: application/json" --request POST --silent \
+		localhost:8080/register | json_pp
 
-comment:
+pippin-comment-breaky:
 	clear
-	curl --data '{"Title":"I would have gone with you to the end","Content":"Into the very fires of Mordor"}' \
-		--header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --silent \
+	curl --data '{"Title":"What about breakfast?","Content":""}' \
+		--header "Content-Type: application/json" --request POST --user pippin:itcomesinpints? --silent \
 		localhost:8080/post/1/comment | json_pp
 
-child-comment:
+aragorn-child-post-already:
 	clear
-	curl --data '{"Title":"Shall I describe it to you?","Content":"..or would you like me to find you a box?"}' \
-		--header "Content-Type: application/json" --request POST --user gimli:noonetossesadwarf --silent \
-		localhost:8080/comment/1 | json_pp
+	curl --data '{"Title": "You've already had it.","Content":"","Categories":["Literature"]}' \
+		--header "Content-Type: application/json" --request POST --user aragorn:myfriends-youbowtonoone! --silent \
+		localhost:8080/post/1 | json_pp
 
-update-post:
+aragorn-update-post:
 	clear
-	curl --data '{"Title":"Great!","Content":"Where are we going?"}' \
-		--header "Content-Type: application/json" --request PATCH --user gimli:noonetossesadwarf --silent \
+	curl --data '{"Title":"Gentlemen,","Content":"we do not stop 'til nightfall."}' \
+		--header "Content-Type: application/json" --request PATCH --user aragorn:myfriends-youbowtonoone! --silent \
 		localhost:8080/post/3 | json_pp
+
+pippin-comment-second:
+	clear
+	curl --data '{"Title":"We've had one, yes.","Content":"What about second breakfast?"}' \
+		--header "Content-Type: application/json" --request POST --user pippin:itcomesinpints? --silent \
+		localhost:8080/post/2/comment | json_pp
+
+merry-signup:
+	clear
+	curl --data '{"Username":"merry","Password":"howmanydidyoueat?"}' \
+		--header "Content-Type: application/json" --request POST --silent \
+		localhost:8080/register | json_pp
+
+merry-post-i-dont-think-he-knows:
+	clear
+	curl --data '{"Title":"I don't think he knows about second breakfast, Pip.","Content":"","Categories":["Literature", "Cinema"]}' \
+		--header "Content-Type: application/json" --request POST --user merry:howmanydidyoueat? --silent \
+		localhost:8080/post | json_pp
+
+pippin-comment-elevenses:
+	clear
+	curl --data '{"Title":"What about elevenses? Luncheon? Afternoon tea?","Content":"Dinner? Supper? He knows about them, doesn't he?"}' \
+		--header "Content-Type: application/json" --request POST --user pippin:itcomesinpints? --silent \
+		localhost:8080/post/3/comment | json_pp
+
+merry-comment-wouldnt-count-on-it:
+	clear
+	curl --data '{"Title":"I wouldn't count on it.","Content":""}' \
+		--header "Content-Type: application/json" --request POST --user merry:howmanydidyoueat? --silent \
+		localhost:8080/comment/3 | json_pp
 
 delete-comment:
 	clear
-	curl --header "Content-Type: application/json" --request DELETE --user gimli:noonetossesadwarf --silent \
-		localhost:8080/comment/1 | json_pp
+	curl --header "Content-Type: application/json" --request DELETE --user merry:howmanydidyoueat? --silent \
+		localhost:8080/comment/3 | json_pp
 
-list-posts:
+list-literature-posts:
 	clear
-	curl --header "Content-Type: application/json" --request GET --user gimli:noonetossesadwarf --silent \
+	curl --header "Content-Type: application/json" --request GET --silent \
 		localhost:8080/post?category=literature | json_pp
 
-list-comments:
+list-cinema-posts:
 	clear
-	curl --header "Content-Type: application/json" --request GET --user gimli:noonetossesadwarf --silent \
-		localhost:8080/post/1/comment | json_pp
+	curl --header "Content-Type: application/json" --request GET --silent \
+		localhost:8080/post?category=cinema | json_pp
+
+list-comments-by-post:
+	clear
+	curl --header "Content-Type: application/json" --request GET --silent \
+		localhost:8080/post/3/comment | json_pp
 
 # Database queries
 show-users:

@@ -40,7 +40,7 @@ func (dal *DataAccessLayer) init() {
 
 	dal.db.AutoMigrate(&User{}, &Post{}, &Comment{}, &Category{})
 
-	populateDatabase()
+	seedCategories()
 }
 
 func (dal *DataAccessLayer) createUser(user *User) {
