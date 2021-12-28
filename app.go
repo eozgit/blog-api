@@ -17,20 +17,17 @@ func main() {
 	app.r.Run()
 }
 
-func createProtectedEndpoints(authorized *gin.RouterGroup) {
-	authorized.POST("/post", publishPost)
-	authorized.GET("/post", listPostsByCategory)
-	authorized.POST("/post/:id", publishChildPost)
-	authorized.PATCH("/post/:id", updatePost)
-	authorized.POST("/post/:id/comment", publishComment)
-	authorized.GET("/post/:id/comment", listCommentsByPost)
-	authorized.POST("/comment/:id", publishChildComment)
-	authorized.DELETE("/comment/:id", deleteComment)
-}
-
 func setupRouter() *gin.Engine {
 	r := gin.Default()
 	r.POST("/register", registerUser)
+	r.POST("/post", makeSecure(publishPost))
+	r.GET("/post", listPostsByCategory)
+	r.POST("/post/:id", makeSecure(publishChildPost))
+	r.PATCH("/post/:id", makeSecure(updatePost))
+	r.POST("/post/:id/comment", makeSecure(publishComment))
+	r.GET("/post/:id/comment", listCommentsByPost)
+	r.POST("/comment/:id", makeSecure(publishChildComment))
+	r.DELETE("/comment/:id", makeSecure(deleteComment))
 	return r
 }
 

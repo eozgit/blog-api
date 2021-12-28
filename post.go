@@ -7,25 +7,18 @@ import (
 )
 
 func publishPost(c *gin.Context) {
-	username, ok := checkAuthorisation(c)
-	if !ok {
-		return
-	}
+	username := getUsername(c)
 
 	publishPostHelper(c, nil, username)
 }
 
 func publishChildPost(c *gin.Context) {
-	username, ok := checkAuthorisation(c)
-	if !ok {
-		return
-	}
-
 	id, hasErr := getIdParam(c)
 	if hasErr {
 		return
 	}
 
+	username := getUsername(c)
 	user := app.dal.getUserByName(username)
 
 	post := app.dal.getPostByID(id)
@@ -67,16 +60,12 @@ func publishPostHelper(c *gin.Context, id *uint, username string) {
 }
 
 func updatePost(c *gin.Context) {
-	username, ok := checkAuthorisation(c)
-	if !ok {
-		return
-	}
-
 	id, hasErr := getIdParam(c)
 	if hasErr {
 		return
 	}
 
+	username := getUsername(c)
 	user := app.dal.getUserByName(username)
 
 	post := app.dal.getPostByID(id)
@@ -100,11 +89,6 @@ func updatePost(c *gin.Context) {
 }
 
 func listPostsByCategory(c *gin.Context) {
-	_, ok := checkAuthorisation(c)
-	if !ok {
-		return
-	}
-
 	title := c.Query("category")
 
 	category := app.dal.getCategoryByTitle(title)

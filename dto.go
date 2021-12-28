@@ -12,10 +12,10 @@ type NewPost struct {
 
 type UpdatedPost struct {
 	Title   string `binding:"required"`
-	Content string `binding:"required"`
+	Content string
 }
 
 type NewComment struct {
 	Title   string `binding:"required"`
-	Content string `binding:"required"`
+	Content string
 }

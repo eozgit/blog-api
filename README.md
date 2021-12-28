@@ -89,3 +89,29 @@ CATEGORIES */ select id, title, content, updated_at from categories order by upd
 
 POST-CATEGORY MAP */ select * from post_categories;"
 ```
+
+
+#### Make commands
+
+```sh
+make aragorn-signup
+make aragorn-post-no-stopping
+make pippin-signup
+make pippin-comment-breaky
+make aragorn-child-post-already
+make aragorn-update-post
+make pippin-comment-second
+make merry-signup
+make merry-post-i-dont-think-he-knows
+make pippin-comment-elevenses
+make merry-comment-wouldnt-count-on-it
+make delete-comment
+make list-literature-posts
+make list-cinema-posts
+make list-comments-by-post
+make show-users
+make show-posts
+make show-comments
+make show-categories
+make show-posts-categories
+```

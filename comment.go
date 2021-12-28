@@ -15,11 +15,6 @@ func publishChildComment(c *gin.Context) {
 }
 
 func publishCommentHelper(c *gin.Context, isChildComment bool) {
-	username, ok := checkAuthorisation(c)
-	if !ok {
-		return
-	}
-
 	id, hasErr := getIdParam(c)
 	if hasErr {
 		return
@@ -31,6 +26,7 @@ func publishCommentHelper(c *gin.Context, isChildComment bool) {
 		return
 	}
 
+	username := getUsername(c)
 	user := app.dal.getUserByName(username)
 
 	comment := Comment{}
@@ -48,16 +44,12 @@ func publishCommentHelper(c *gin.Context, isChildComment bool) {
 }
 
 func deleteComment(c *gin.Context) {
-	username, ok := checkAuthorisation(c)
-	if !ok {
-		return
-	}
-
 	id, hasErr := getIdParam(c)
 	if hasErr {
 		return
 	}
 
+	username := getUsername(c)
 	user := app.dal.getUserByName(username)
 
 	comment := app.dal.getCommentById(*id)
@@ -73,24 +65,12 @@ func deleteComment(c *gin.Context) {
 }
 
 func listCommentsByPost(c *gin.Context) {
-	username, ok := checkAuthorisation(c)
-	if !ok {
-		return
-	}
-
 	id, hasErr := getIdParam(c)
 	if hasErr {
 		return
 	}
 
-	user := app.dal.getUserByName(username)
-
 	post := app.dal.getPostByID(id)
-
-	if user.ID != post.UserID {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorised"})
-		return
-	}
 
 	comments := app.dal.listCommentsByPost(post)
 

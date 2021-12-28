@@ -8,23 +8,6 @@ import (
 	"gorm.io/gorm"
 )
 
-type DbOps interface {
-	init()
-	createUser(user *User)
-	getUserByName(username string) *User
-	listUsers() []*User
-	createPost(post *Post)
-	getPostByID(id *uint) *Post
-	createComment(comment *Comment)
-	getCommentById(id uint) *Comment
-	deleteCommentById(id uint)
-	createCategory(category *Category)
-	getCategoryByTitle(title string) *Category
-	listPostsByCategory(category *Category) []*Post
-	listPostsByParentPost(post *Post) []*Post
-	listCommentsByPost(post *Post) []*Comment
-}
-
 type DataAccessLayer struct {
 	db *gorm.DB
 }
@@ -51,12 +34,6 @@ func (dal *DataAccessLayer) getUserByName(userName string) *User {
 	var user User
 	dal.db.Where("username = ?", userName).Find(&user)
 	return &user
-}
-
-func (dal *DataAccessLayer) listUsers() []*User {
-	var users []*User
-	dal.db.Find(&users)
-	return users
 }
 
 func (dal *DataAccessLayer) createPost(post *Post) {
@@ -97,12 +74,6 @@ func (dal *DataAccessLayer) deleteCommentById(id uint) {
 func (dal *DataAccessLayer) listPostsByCategory(category *Category) []*Post {
 	var posts []*Post
 	dal.db.Model(&category).Association("Posts").Find(&posts)
-	return posts
-}
-
-func (dal *DataAccessLayer) listPostsByParentPost(post *Post) []*Post {
-	var posts []*Post
-	dal.db.Model(&post).Association("Children").Find(&posts)
 	return posts
 }
 

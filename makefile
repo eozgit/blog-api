@@ -32,25 +32,25 @@ pippin-signup:
 
 pippin-comment-breaky:
 	clear
-	curl --data '{"Title":"What about breakfast?","Content":""}' \
+	curl --data '{"Title":"What about breakfast?"}' \
 		--header "Content-Type: application/json" --request POST --user pippin:itcomesinpints? --silent \
 		localhost:8080/post/1/comment | json_pp
 
 aragorn-child-post-already:
 	clear
-	curl --data '{"Title": "You've already had it.","Content":"","Categories":["Literature"]}' \
+	curl --data '{"Title": "You''ve already had it.","Categories":["Literature"]}' \
 		--header "Content-Type: application/json" --request POST --user aragorn:myfriends-youbowtonoone! --silent \
 		localhost:8080/post/1 | json_pp
 
 aragorn-update-post:
 	clear
-	curl --data '{"Title":"Gentlemen,","Content":"we do not stop 'til nightfall."}' \
+	curl --data '{"Title":"Gentlemen,","Content":"we do not stop ''til nightfall."}' \
 		--header "Content-Type: application/json" --request PATCH --user aragorn:myfriends-youbowtonoone! --silent \
-		localhost:8080/post/3 | json_pp
+		localhost:8080/post/1 | json_pp
 
 pippin-comment-second:
 	clear
-	curl --data '{"Title":"We've had one, yes.","Content":"What about second breakfast?"}' \
+	curl --data '{"Title":"We''ve had one, yes.","Content":"What about second breakfast?"}' \
 		--header "Content-Type: application/json" --request POST --user pippin:itcomesinpints? --silent \
 		localhost:8080/post/2/comment | json_pp
 
@@ -62,26 +62,26 @@ merry-signup:
 
 merry-post-i-dont-think-he-knows:
 	clear
-	curl --data '{"Title":"I don't think he knows about second breakfast, Pip.","Content":"","Categories":["Literature", "Cinema"]}' \
+	curl --data '{"Title":"I don''t think he knows about second breakfast, Pip.","Categories":["Literature", "Cinema"]}' \
 		--header "Content-Type: application/json" --request POST --user merry:howmanydidyoueat? --silent \
 		localhost:8080/post | json_pp
 
 pippin-comment-elevenses:
 	clear
-	curl --data '{"Title":"What about elevenses? Luncheon? Afternoon tea?","Content":"Dinner? Supper? He knows about them, doesn't he?"}' \
+	curl --data '{"Title":"What about elevenses? Luncheon? Afternoon tea?","Content":"Dinner? Supper? He knows about them, doesn''t he?"}' \
 		--header "Content-Type: application/json" --request POST --user pippin:itcomesinpints? --silent \
 		localhost:8080/post/3/comment | json_pp
 
 merry-comment-wouldnt-count-on-it:
 	clear
-	curl --data '{"Title":"I wouldn't count on it.","Content":""}' \
+	curl --data '{"Title":"I wouldn''t count on it."}' \
 		--header "Content-Type: application/json" --request POST --user merry:howmanydidyoueat? --silent \
 		localhost:8080/comment/3 | json_pp
 
 delete-comment:
 	clear
 	curl --header "Content-Type: application/json" --request DELETE --user merry:howmanydidyoueat? --silent \
-		localhost:8080/comment/3 | json_pp
+		localhost:8080/comment/4 | json_pp
 
 list-literature-posts:
 	clear

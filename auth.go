@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,37 +19,27 @@ func registerUser(c *gin.Context) {
 	user.Password = credentials.Password
 	app.dal.createUser(&user)
 
-	authorized := createProtectedRouterGroup()
-
-	createProtectedEndpoints(authorized)
-
 	c.JSON(http.StatusOK, gin.H{"status": "User created"})
 }
 
-func getAccounts() map[string]string {
-	users := app.dal.listUsers()
+func makeSecure(handler func(*gin.Context)) func(*gin.Context) {
+	return func(c *gin.Context) {
+		username, password, _ := c.Request.BasicAuth()
 
-	accounts := make(map[string]string)
-	for i := 0; i < len(users); i++ {
-		user := users[i]
-		accounts[user.Username] = user.Password
+		user := app.dal.getUserByName(username)
+
+		fmt.Printf("%s %s\n", user.Password, password)
+
+		if user.Password != password {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorised"})
+		} else {
+			handler(c)
+		}
 	}
-
-	return accounts
 }
 
-func createProtectedRouterGroup() *gin.RouterGroup {
-	accounts := getAccounts()
+func getUsername(c *gin.Context) string {
+	username, _, _ := c.Request.BasicAuth()
 
-	return app.r.Group("/", gin.BasicAuth(accounts))
-}
-
-func checkAuthorisation(c *gin.Context) (string, bool) {
-	username, _, ok := c.Request.BasicAuth()
-
-	if !ok {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorised"})
-	}
-
-	return username, ok
+	return username
 }
