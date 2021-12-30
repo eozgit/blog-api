@@ -1,0 +1,1 @@
+sqlite3 -header -column -echo /tmp/blog.db < /app/sql/comments.sql

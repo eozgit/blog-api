@@ -7,7 +7,12 @@ blog api loosely based on the following er diagram [source](https://mysql.tutori
 
 #### Run container
 ```sh
-docker run --tty --interactive --publish 8080:8080 eozgit/blog-api
+docker run --tty --interactive --rm --publish 8080:8080 --name blog-api eozgit/blog-api
+```
+
+#### Start interactive shell on container
+```sh
+docker exec --interactive --tty blog-api bash
 ```
 
 #### Register

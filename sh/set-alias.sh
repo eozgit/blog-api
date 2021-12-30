@@ -1,0 +1,23 @@
+cbx() {
+    clear && bash -x /app/sh/$1.sh
+}
+alias 1-aragorn-signup='cbx aragorn-signup'
+alias 2-aragorn-post-no-stopping='cbx aragorn-post-no-stopping'
+alias 3-pippin-signup='cbx pippin-signup'
+alias 4-pippin-comment-breaky='cbx pippin-comment-breaky'
+alias 5-aragorn-child-post-already='cbx aragorn-child-post-already'
+alias 6-aragorn-update-post='cbx aragorn-update-post'
+alias 7-pippin-comment-second='cbx pippin-comment-second'
+alias 8-merry-signup='cbx merry-signup'
+alias 9-merry-post-i-dont-think-he-knows='cbx merry-post-i-dont-think-he-knows'
+alias 10-pippin-comment-elevenses='cbx pippin-comment-elevenses'
+alias 11-merry-comment-wouldnt-count-on-it='cbx merry-comment-wouldnt-count-on-it'
+alias 12-delete-comment='cbx delete-comment'
+alias 13-list-literature-posts='cbx list-literature-posts'
+alias 14-list-cinema-posts='cbx list-cinema-posts'
+alias 15-list-comments-by-post='cbx list-comments-by-post'
+alias 16-show-users='cbx show-users'
+alias 17-show-posts='cbx show-posts'
+alias 18-show-comments='cbx show-comments'
+alias 19-show-categories='cbx show-categories'
+alias 20-show-posts-categories='cbx show-posts-categories'
