@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -27,8 +26,6 @@ func makeSecure(handler func(*gin.Context)) func(*gin.Context) {
 		username, password, _ := c.Request.BasicAuth()
 
 		user := app.dal.getUserByName(username)
-
-		fmt.Printf("%s %s\n", user.Password, password)
 
 		if user.Password != password {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorised"})
