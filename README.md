@@ -1,34 +1,38 @@
 # blog api
 
-blog api loosely based on the following er diagram [source](https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql)
+blogging api loosely based on the following er diagram [source](https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql)
 
 [![er diagram](er.png)](https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql)
 
 ---
 
-#### Pull container
+### Container commands
+
+#### Pull
 ```sh
 docker pull eozgit/blog-api
 ```
 
-#### Run container
+#### Run
 ```sh
 docker run --tty --interactive --rm --publish 8080:8080 --name blog-api eozgit/blog-api
 ```
 
-#### Start interactive shell on container
+#### Start interactive shell
 ```sh
 docker exec --interactive --tty blog-api bash
 ```
 
-#### Build container
+#### Build image
 ```sh
 docker build --tag eozgit/blog-api .
 ```
 
 ---
 
-#### Run code
+### Go commands
+
+#### Run app
 ```sh
 go run .
 ```
