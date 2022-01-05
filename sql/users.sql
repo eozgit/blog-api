@@ -2,8 +2,8 @@ select
     id,
     username,
     password,
-    updated_at
+    strftime('%H:%M:%S', updated_at) updated_at
 from
     users
 order by
-    updated_at desc;
+    id;

@@ -1,11 +1,11 @@
 select
     id,
-    title,
-    content,
+    substr(title, 1, 25) title,
+    substr(content, 1, 25) content,
     user_id,
     parent_id,
-    updated_at
+    strftime('%H:%M:%S', updated_at) updated_at
 from
     posts
 order by
-    updated_at desc;
+    id;

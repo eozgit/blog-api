@@ -2,8 +2,8 @@ select
     id,
     title,
     content,
-    updated_at
+    strftime('%H:%M:%S', updated_at) updated_at
 from
     categories
 order by
-    updated_at desc;
+    id;
