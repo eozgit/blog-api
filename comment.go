@@ -34,6 +34,8 @@ func publishCommentHelper(c *gin.Context, isChildComment bool) {
 	comment.Content = newComment.Content
 	comment.User = *user
 	if isChildComment {
+		parentComment := app.dal.getCommentById(*id)
+		comment.PostID = parentComment.PostID
 		comment.ParentId = id
 	} else {
 		comment.PostID = id
