@@ -1,21 +1,17 @@
 # blog api
 
-blogging api loosely based on the following er diagram [source](https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql)
+#### Demo
+https://youtu.be/puY2l4nB60E
 
-[![er diagram](er.png)](https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql)
 
----
-
-### Container commands
-
-#### Pull
+#### Pull image
 ```sh
 docker pull eozgit/blog-api
 ```
 
-#### Run
+#### Run container
 ```sh
-docker run --tty --interactive --rm --publish 8080:8080 --name blog-api eozgit/blog-api
+docker run --rm --tty --interactive --publish 8080:8080 --name blog-api eozgit/blog-api
 ```
 
 #### Start interactive shell
@@ -23,14 +19,30 @@ docker run --tty --interactive --rm --publish 8080:8080 --name blog-api eozgit/b
 docker exec --interactive --tty blog-api bash
 ```
 
-#### Build image
-```sh
-docker build --tag eozgit/blog-api .
-```
+---
+
+blogging api loosely based on the following er diagram [source](https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql)
+
+[![er diagram](er.png)](https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql)
 
 ---
 
-### Go commands
+#### Docker repo
+https://hub.docker.com/r/eozgit/blog-api
+
+---
+
+#### Build image
+```sh
+docker build --tag eozgit/blog-api:latest --tag eozgit/blog-api:YYMMDD .
+```
+
+#### Push image
+```sh
+docker image push eozgit/blog-api --all-tags
+```
+
+---
 
 #### Run app
 ```sh
@@ -41,14 +53,3 @@ go run .
 ```sh
 go test -v .
 ```
-
----
-
-#### Code
-https://github.com/eozgit/blog-api
-
-#### Docker repo
-https://hub.docker.com/repository/docker/eozgit/blog-api
-
-#### Demo
-https://youtu.be/puY2l4nB60E
